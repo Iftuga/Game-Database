@@ -5,7 +5,6 @@ Created on Apr 2018
 @author: Труханов А.И.
 """
 
-
 def base():
     """
     База данных

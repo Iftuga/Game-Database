@@ -4,33 +4,41 @@
 
 Поле = {"Название игры":0, "Платформа":1, "Жанр":2, "Год выпуска":3, "Разработчик":4, "Издатель":5, "Цена":6}
 
-
-def dataRead():
+def readData():
     """
     Read Database
     """
-    f = open('./data.txt','r')
-    f.read(25)
-    dataStr = f.read(9999)
-    i = 0
-    even = 0
-    j = 0
-    game = []
-    games = []
-    while (j < len(dataStr)):
-        if (dataStr[j] == '"'):
-            if (even == 0):
-                i = j + 1
-                even += 1
-            else:
-                even = 0
-                game.append(dataStr[i:j])
-        if (dataStr[j] == ']'):
-            games.append(game)
-            game = []
-        j+=1
-    return games
-        
+    import pickle as pi
+    fin = open('data.pi', 'rb')
+    data = pi.load(fin)
+    return data
+
+def writeData( data ):
+    """
+    Read Database
+    """
+    import pickle as pi
+    fin = open('data.pi', 'wb')
+    pi.dump(data, fin)
+
+def addRecord(a,a0,a1,a2,a3,a4,a5,a6):
+    """
+    Add in database
+    """
+    data = readData()
+    """data.append()"""
+    d = []
+    d.append(a0)
+    d.append(a1)
+    d.append(a2)
+    d.append(a3)
+    d.append(a4)
+    d.append(a5)
+    d.append(a6)
+    data.append(d) # if we will want dictionary we will create dict as POLYNA
+    writeData(data)
+
+
 def posMore( vvod , vivod):
     """
     Get key words and seek them
@@ -38,7 +46,8 @@ def posMore( vvod , vivod):
     """
     flag = 0
     i = 0
-    games = dataRead()
+    games = readData()
+    print(vvod)
     for a in games:
         isInVivod = 0
         for c in vivod:
@@ -48,14 +57,17 @@ def posMore( vvod , vivod):
             while (i < len(vvod)):
                 for b in a:
                     if (flag != i+1):
+                        print(b,vvod[i],b==vvod[i])
                         if (b == vvod[i]):
                             flag+=1
                 i+=1
                 if (flag == len(vvod)):
                     vivod.append(a)
+                    print(a)
                     flag = 0
             i = 0
             flag = 0
+
 def pos( vvod ):
     """
     Read key words and seek them
@@ -81,6 +93,7 @@ def pos( vvod ):
         for b in a:
             print(b)   
         print()
+
 def sort( vvod , order ):
     """
     Read key words sort
@@ -88,7 +101,7 @@ def sort( vvod , order ):
     """
     priority = []
     nombers = {}
-    games = dataRead()
+    games = readData()
     if (vvod in Поле):
         for a in games:
             priority.append(a[Поле[vvod]])

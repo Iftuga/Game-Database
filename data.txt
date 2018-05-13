@@ -1,4 +1,3 @@
-    #Автор Труханов А.И.
     W1 = ["Warcraft", "Стратегия", "ПК", "1994", "499",
           "Blizzard Entertainment", "Blizzard Entertainment"]
     W2 = ["Warcraft 2", "Стратегия", "ПК", "1995", "499",
