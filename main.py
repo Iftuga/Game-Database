@@ -99,6 +99,7 @@ def sort( vvod , order ):
     Read key words sort
     Autor: Volkov V.D.
     """
+    output = []
     priority = []
     nombers = {}
     games = readData()
@@ -115,15 +116,16 @@ def sort( vvod , order ):
         if (order == 1):
             j = 0
             while (j < len(nombers)):
-                print(nombers[j])
+                output.append(nombers[j])
                 j+=1      
         else:
             if (order == 0):
                 j = len(nombers) - 1
                 while (j > -1):
-                    print(nombers[j])
+                    output.append(nombers[j])
                     j-=1  
             else:
                 print("Incorrect input")
     else:
         print("Incorrect input")
+    return output
