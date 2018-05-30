@@ -18,117 +18,97 @@ def display():
             self.pPu = []
             self.pPr = []
 
-#Поле = {"Название игры":0, "Платформа":1, "Жанр":2, "Год выпуска":3, "Разработчик":4, "Издатель":5, "Цена":6}
-            self.posNameGame = tk.Button( root, width = 100, height = 100, text = "Название игры", bg = "white", fg="black")
+#Поле = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
+            self.posNameGame = tk.Button( root, text = "Название игры", bg = "white", fg="black")
             i = 0
+            self.exit = tk.Button( root, text = "Exit", command = root.destroy, bg = "white", fg="black")
             while ( i < len(self.base)):
                 self.pNG.append(tk.Entry(root))
                 i = i + 1
-            self.posPlat = tk.Button( root, width = 100, height = 100, text = "Платформа", bg = "white", fg="black")
+            self.posPlat = tk.Button( root, text = "Платформа", bg = "white", fg="black")
             i = 0
             while ( i < len(self.base)):
                 self.pP.append(tk.Entry(root))
                 i = i + 1
-            self.posGenre = tk.Button( root, width = 100, height = 100, text = "Жанр", bg = "white", fg="black")
+            self.posGenre = tk.Button( root, text = "Жанр", bg = "white", fg="black")
             i = 0
             while ( i < len(self.base)):
                 self.pG.append(tk.Entry(root))
                 i = i + 1
-            self.posYear = tk.Button( root, width = 100, height = 100, text = "Год выпуска", bg = "white", fg="black")
+            self.posYear = tk.Button( root, text = "Год выпуска", bg = "white", fg="black")
             i = 0
             while ( i < len(self.base)):
                 self.pY.append(tk.Entry(root))
                 i = i + 1
-            self.posDevel = tk.Button( root, width = 100, height = 100, text = "Разработчик", bg = "white", fg="black")
+            self.posDevel = tk.Button( root, text = "Разработчик", bg = "white", fg="black")
             i = 0
             while ( i < len(self.base)):
                 self.pD.append(tk.Entry(root))
                 i = i + 1
-            self.posPublisher = tk.Button( root, width = 100, height = 100, text = "Издатель", bg = "white", fg="black")
+            self.posPublisher = tk.Button( root, text = "Издатель", bg = "white", fg="black")
             i = 0
             while ( i < len(self.base)):
                 self.pPu.append(tk.Entry(root))
                 i = i + 1
-            self.posPrice = tk.Button( root, width = 100, height = 100, text = "Цена", bg = "white", fg="black")
+            self.posPrice = tk.Button( root, text = "Цена", bg = "white", fg="black")
             i = 0
             while ( i < len(self.base)):
                 self.pPr.append(tk.Entry(root))
                 i = i + 1
+            self.frame = tk.Frame(root)
             self.init_widget()
         def init_widget(self):
+            #self.frame.place( x = 100, y = 50, width = 750, height = (len(self.base) + 1) * 25)
             self.posNameGame.bind('<ButtonRelease-1>',
                          lambda event: self.sortDisp(event, "Название игры"))
             self.posNameGame.place(x = 100, y = 50, width = 125, height = 25)
-            i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
-                self.pNG[i].insert(0,self.base[i][0])
-                i = i + 1
-                self.pNG[i].place(x = 100, y = 50 + i * 25, width = 125, height = 25 )
             self.posPlat.bind('<ButtonRelease-1>',
                          lambda event: self.sortDisp(event, "Платформа"))
             self.posPlat.place(x = 225, y = 50, width = 100, height = 25)
-            i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
-                self.pP[i].insert(0,self.base[i][1])
-                i = i + 1
-                self.pP[i].place(x = 225, y = 50 + i * 25, width = 100, height = 25 )
             self.posGenre.bind('<ButtonRelease-1>',
                          lambda event: self.sortDisp(event, "Жанр"))
             self.posGenre.place(x = 325, y = 50, width = 50, height = 25)
-            i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
-                self.pG[i].insert(0,self.base[i][2])
-                i = i + 1
-                self.pG[i].place(x = 325, y = 50 + i * 25, width = 50, height = 25 )
             self.posYear.bind('<ButtonRelease-1>',
                          lambda event: self.sortDisp(event, "Год выпуска"))
             self.posYear.place(x = 375, y = 50, width = 100, height = 25)
-            i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
-                self.pY[i].insert(0,self.base[i][3])
-                i = i + 1
-                self.pY[i].place(x = 375, y = 50 + i * 25, width = 100, height = 25 )
             self.posDevel.bind('<ButtonRelease-1>',
                          lambda event: self.sortDisp(event, "Разработчик"))
             self.posDevel.place(x = 475, y = 50, width = 100, height = 25)
-            i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
-                self.pD[i].insert(0,self.base[i][6])#4 and 6 ?
-                i = i + 1
-                self.pD[i].place(x = 475, y = 50 + i * 25, width = 100, height = 25 )
             self.posPublisher.bind('<ButtonRelease-1>',
                          lambda event: self.sortDisp(event, "Издатель"))
             self.posPublisher.place(x = 575, y = 50, width = 100, height = 25)
-            i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
-                self.pPu[i].insert(0,self.base[i][5])
-                i = i + 1
-                self.pPu[i].place(x = 575, y = 50 + i * 25, width = 100, height = 25 )
             self.posPrice.bind('<ButtonRelease-1>',
                          lambda event: self.sortDisp(event, "Цена"))
             self.posPrice.place(x = 675, y = 50, width = 50, height = 25)
-            i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
-                self.pPr[i].insert(0,self.base[i][4])
-                i = i + 1
-                self.pPr[i].place(x = 675, y = 50 + i * 25, width = 50, height = 25 )
+            self.exit.bind('<ButtonRelease-1>')
+            self.exit.place(x = 850, y = 650, width = 75, height = 40)
+            self.buttSort()
+#Поле = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
         def buttSort(self):
             i = 0
-            while ( i < len(self.base) and 50 + i * 25 < 750):
+            while ( i < len(self.base)):
+                self.pNG[i].delete(0,1999)
                 self.pNG[i].insert(0,self.base[i][0])
-                i = i + 1
-                self.pNG[i].place(x = 100, y = 50 + i * 25, width = 125, height = 25 )
-                self.pP[i].insert(0,self.base[i][1])
-                self.pP[i].place(x = 225, y = 50 + i * 25, width = 100, height = 25 )
-                self.pG[i].insert(0,self.base[i][2])
-                self.pG[i].place(x = 325, y = 50 + i * 25, width = 50, height = 25 )
+                self.pNG[i].place(x = 100, y = 50 + ( i + 1 ) * 25, width = 125, height = 25 )
+                self.pP[i].delete(0,1999)
+                self.pP[i].insert(0,self.base[i][2])
+                self.pP[i].place(x = 225, y = 50 + ( i + 1 ) * 25, width = 100, height = 25 )
+                self.pG[i].delete(0,1999)
+                self.pG[i].insert(0,self.base[i][1])
+                self.pG[i].place(x = 325, y = 50 + ( i + 1 ) * 25, width = 50, height = 25 )
+                self.pY[i].delete(0,1999)
                 self.pY[i].insert(0,self.base[i][3])
-                self.pY[i].place(x = 375, y = 50 + i * 25, width = 100, height = 25 )
-                self.pD[i].place(x = 475, y = 50 + i * 25, width = 100, height = 25 )
-                self.pPu[i].insert(0,self.base[i][5])
-                self.pPu[i].place(x = 575, y = 50 + i * 25, width = 100, height = 25 )
+                self.pY[i].place(x = 375, y = 50 + ( i + 1 ) * 25, width = 100, height = 25 )
+                self.pD[i].delete(0,1999)
+                self.pD[i].insert(0,self.base[i][5])
+                self.pD[i].place(x = 475, y = 50 + ( i + 1 ) * 25, width = 100, height = 25 )
+                self.pPu[i].delete(0,1999)
+                self.pPu[i].insert(0,self.base[i][6])
+                self.pPu[i].place(x = 575, y = 50 + ( i + 1 ) * 25, width = 100, height = 25 )
+                self.pPr[i].delete(0,1999)
                 self.pPr[i].insert(0,self.base[i][4])
-                self.pPr[i].place(x = 675, y = 50 + i * 25, width = 50, height = 25 )
+                self.pPr[i].place(x = 675, y = 50 + ( i + 1 ) * 25, width = 50, height = 25 )
+                i = i + 1
 
         def sortDisp(self, event, newSort):
             if ( self.currSort == newSort ):
@@ -137,12 +117,13 @@ def display():
                 self.flagSort = 1
             self.base = main.sort(newSort, self.flagSort)
             self.currSort = newSort
+            self.buttSort()
 
 
 
     root = tk.Tk()
     root.title("Games Date Base")
-    root.geometry('800x600')
+    root.geometry('1280x720')
 
     # second part
 
@@ -154,3 +135,4 @@ def display():
     #print(flagSort)
     #posNameGame.pack()
     root.mainloop()
+display()
