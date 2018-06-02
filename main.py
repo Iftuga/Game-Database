@@ -21,20 +21,10 @@ def writeData( data ):
     fin = open('data.pi', 'wb')
     pi.dump(data, fin)
 
-def addRecord(a,a0,a1,a2,a3,a4,a5,a6):
+def addRecord(data,d):
     """
     Add in database
     """
-    data = readData()
-    """data.append()"""
-    d = []
-    d.append(a0)
-    d.append(a1)
-    d.append(a2)
-    d.append(a3)
-    d.append(a4)
-    d.append(a5)
-    d.append(a6)
     data.append(d) # if we will want dictionary we will create dict as POLYNA
     writeData(data)
 
