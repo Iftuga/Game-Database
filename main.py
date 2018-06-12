@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-Поле = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
+field = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
+unfield = {0:"Название игры", 1:"Жанр", 2:"Платформа", 3:"Год выпуска", 4:"Цена", 5:"Разработчик", 6:"Издатель"}
 
 def readData():
     """
@@ -93,17 +94,17 @@ def sort( vvod , order ):
     priority = []
     nombers = {}
     games = readData()
-    if (vvod in Поле):
+    if (vvod in field):
         for a in games:
             if (vvod == "Цена"):
-                priority.append(int(a[Поле[vvod]]))
+                priority.append(int(a[field[vvod]]))
             else:
-                priority.append(a[Поле[vvod]])
+                priority.append(a[field[vvod]])
         priority = sorted(priority)
         i = 0
         for a in games:
             i = 0
-            while ( a[Поле[vvod]] != str(priority[i]) or i in nombers):
+            while ( a[field[vvod]] != str(priority[i]) or i in nombers):
                 i+=1
             nombers[i]=a
         if (order == 1):
