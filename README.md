@@ -1,2 +1,0 @@
-# Game Database
-"Python Coursework"
