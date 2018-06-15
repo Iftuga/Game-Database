@@ -114,7 +114,7 @@ def display():
 
 #Поле = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
             # Search
-            self.exit = tk.Button( self.frame_exit, text = "Exit", command = root.destroy, bg = "white", fg="black")
+            self.exit = tk.Button( self.frame_exit, text = "Выйти", command = root.destroy, bg = "white", fg="black")
 
             self.pSkip = []
             self.pos = []
@@ -145,14 +145,14 @@ def display():
 
             # Add
             self.addSpace = tk.Label( self.frame_add, width = 12 )
-            self.add =  tk.Button( self.frame_add, text = "Add", bg = "white", fg="black")
+            self.add =  tk.Button( self.frame_add, text = "Добавить", bg = "white", fg="black")
             self.addNameGame = tk.Entry( self.frame_add, width = self.width[self.sequence[0]] )
             self.addPlat = tk.Entry( self.frame_add, width = self.width[self.sequence[1]] )
             self.addGenre = tk.Entry( self.frame_add, width = self.width[self.sequence[2]] )
             self.addYear = tk.Entry( self.frame_add, width = self.width[self.sequence[3]] )
-            self.addDevel = tk.Entry( self.frame_add, width = int(self.width[self.sequence[4]] ))
-            self.addPublisher = tk.Entry( self.frame_add, width = int(self.width[self.sequence[5]] ))
-            self.addPrice = tk.Entry( self.frame_add, width = int(self.width[self.sequence[6]] ))
+            self.addDevel = tk.Entry( self.frame_add, width = self.width[self.sequence[4]] )
+            self.addPublisher = tk.Entry( self.frame_add, width = self.width[self.sequence[5]] )
+            self.addPrice = tk.Entry( self.frame_add, width = self.width[self.sequence[6]]*2 )
 
             # init
             self.init_widget()
@@ -166,17 +166,29 @@ def display():
             self.exit.grid()
             #self.scrollF.config(width = 500, heigth = 400)
             #self.frame_all.place( x = 100, y = 50, width = 2791, height = 1500 )
-            self.frame_all.place( x = 10, y = 5, width = 2791, height = 1500 )
+            self.frame_all.place( x = 10, y = 5, width = 1291, height = 1500 )
             
             self.exit.bind('<ButtonRelease-1>')
             #self.exit.place(x = 1050, y = 650, width = 75, height = 40)
 
             self.frame_sort.grid( row = 0, column = 0)
             self.scrollF.grid( row = 1, column = 0)
-            self.frame_add.grid( row = 2, column = 0)
-            self.frame_search.grid( row = 1, column = 1)
-            self.frame_exit.grid( row = 3, column = 1)
+            #self.frame_all.rowconfigure(2, weight=1)
+            self.frame_add.grid( row = 3, column = 0)
+            #self.frame_all.rowconfigure(4, weight=2)
+            self.frame_search.grid( row = 5, column = 0)
+            self.frame_exit.grid( row = 5, column = 1)
 
+
+            #output
+            def output():
+                #self.frame_search.grid( row = 5, column = 0)
+                self.out =  tk.Button( self.frame_search, text = "Подведение итогов", bg = "white", fg="black")
+                self.out.bind("Button-1", lambda event: main.resulttxt(self.base))
+                self.out.grid( row = 0, column = 0)
+                
+
+            output()
             # add
             self.add.bind('<ButtonRelease-1>', lambda event: self.buttAdd(event))
             self.addSpace.grid( row = 0, column = 0)
@@ -190,7 +202,7 @@ def display():
             self.add.grid( row = 0, column = 8)
             # functions
             self.buttSort()
-            
+        
         def buttSort(self):
             self.dele = []
             def deleteBase(i):
