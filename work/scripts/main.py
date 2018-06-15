@@ -7,33 +7,36 @@ unfield = {0:"Название игры", 1:"Жанр", 2:"Платформа", 
 
 def readData():
     """
-    Read Database
+	Автор Труханов А.И.
+    Читает базу
     """
     import pickle as pi
-    fin = open('data.pi', 'rb')
+    fin = open('../data/data.pi', 'rb')
     data = pi.load(fin)
     return data
 
 def writeData( data ):
-    """
-    Read Database
-    """
+	"""
+	Автор: Гуняшов Н.Н.
+	Печатает дату
+	"""
     import pickle as pi
-    fin = open('data.pi', 'wb')
+    fin = open('../data/data.pi', 'wb')
     pi.dump(data, fin)
 
 def addRecord(data,d):
-    """
-    Add in database
-    """
+	"""
+	Автор: Волков В.Д.
+	Добавляет запись
+	"""
     data.append(d)
     writeData(data)
 
 
 def posMore( vvod , vivod):
     """
-    Get key words and seek them
-    Autor: Volkov V.D.
+	Автор Труханов А.И.
+    Ищет по множеству параметров
     """
     flag = 0
     i = 0
@@ -60,10 +63,10 @@ def posMore( vvod , vivod):
             flag = 0
 
 def pos( vvod ):
-    """
-    Read key words and seek them
-    Autor: Volkov V.D.
-    """
+	"""
+	Автор: Гуняшов Н.Н.
+	Поиск по параметрам
+	"""
     i = 0  
     j = 0
     lis = [] 
@@ -86,10 +89,10 @@ def pos( vvod ):
         print()
 
 def sort( vvod , order ):
-    """
-    Read key words sort
-    Autor: Volkov V.D.
-    """
+	"""
+	Автор: Волков В.Д.
+	Сортирует
+	"""
     output = []
     priority = []
     nombers = {}
@@ -123,3 +126,93 @@ def sort( vvod , order ):
     else:
         print("Incorrect input")
     return output
+
+def search(a,b,c,d):
+    """
+	Автор Труханов А.И.
+    Поиск в промежутке
+    """
+    baseOut = []
+    base = readData()
+    if (len(a) > 0):
+        for e in base:
+            if (int(e[4]) > int(a)):
+                baseOut.append(e)
+
+    if (len(b) > 0):
+        if (len(baseOut) == 0):
+            for e in base:
+                if (int(e[4]) < int(b)):
+                    baseOut.append(e)
+        else:
+            base = []
+            for e in baseOut:
+                if (int(e[4]) < int(b)):
+                    base.append(e)
+        baseOut = base
+
+    if (len(c) > 0):
+        if (len(baseOut) == 0):
+            for e in base:
+                if (int(e[3]) > int(c)):
+                    baseOut.append(e)
+        else:
+            base = []
+            for e in baseOut:
+                if (int(e[3]) > int(c)):
+                    base.append(e)
+        baseOut = base
+
+    if (len(d) > 0):
+        if ( len(baseOut) == 0):
+            for e in base:
+                if (int(e[3]) < int(d)):
+                    baseOut.append(e)
+        else:
+            base = []
+            for e in baseOut:
+                if (int(e[3]) < int(d)):
+                    base.append(e)
+        baseOut = base
+    return baseOut
+
+def outBase( data ):
+	"""
+	Автор: Гуняшов Н.Н.
+	Выводит базу
+	"""
+    fin = open('base.txt', 'w')
+    for a in data:
+        for b in a:
+            print(b, file=fin)
+        print(file=fin)
+    fin.close()
+
+def resulttxt(data):
+	"""
+	Автор: Волков В.Д.
+	Считает ср. арифм.
+	"""
+    fin = open('result.txt', 'w')
+    d=0
+    summ=0
+    sr=0
+    disp=0
+    otkl=[]
+    summotkl=0
+    for a in data:
+        d=d+1
+    print("Кол-во записей:",file=fin)
+    print(d,file=fin)
+    for a in data:
+        summ=summ+int(a[4])
+    sr=summ/d
+    print("Среднее арифметическое:",file=fin)
+    print(int(sr),file=fin)
+    for a in data:
+        otkl.append((int(sr)-int(a[4]))**2)
+    for a in otkl:
+        summotkl=summotkl+a
+    disp=summotkl/d
+    print("Дисперсия:",file=fin)
+    print(int(disp),file=fin)

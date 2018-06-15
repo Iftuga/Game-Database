@@ -1,13 +1,19 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
 def display():
+	"""
+	Автор: Волков В.Д.
+	Отображает основное окно
+	"""
     # first part
-    import main
     import tkinter as tk
     class scrollFrame(tk.Frame):
         def __init__(self, parent, *args, **kw):
+		"""
+		Автор: Труханов А.И.
+		Объявление переменных в классе scrollFrame
+		"""
             tk.Frame.__init__(self, parent, *args, **kw)            
 
             # create a canvas object and a vertical scrollbar for scrolling it
@@ -30,6 +36,10 @@ def display():
             # track changes to the canvas and frame width and sync them,
             # also updating the scrollbar
             def _configure_interior(event):
+			"""
+			Автор: Гуняшов Н.Н.
+			Настройки прокрутки
+			"""
                 # update the scrollbars to match the size of the inner frame
                 size = (interior.winfo_reqwidth(), interior.winfo_reqheight())
                 canvas.config(scrollregion="0 0 %s %s" % size)
@@ -39,16 +49,24 @@ def display():
             interior.bind('<Configure>', _configure_interior)
 
             def _configure_canvas(event):
+			"""
+			Автор: Волков В.Д.
+			Настройки прокручиваемого поля
+			"""
                 if interior.winfo_reqwidth() != canvas.winfo_width():
                     # update the inner frame's width to fill the canvas
                     canvas.itemconfigure(interior_id, width=canvas.winfo_width())
             canvas.bind('<Configure>', _configure_canvas)
 
     class MainWindow:
-        def __init__(self):
+        def __init__(self,base):
+		"""
+		Автор: Труханов А.И.
+		Объявление переменных в классе MainWindow
+		"""
             self.flagSort = 0
             self.currSort = ""
-            self.base = main.readData()
+            self.base = base#main.readData()
             self.p = []
             self.im = tk.Label(root)
             self.im.place(x=0, y=0, relwidth=1, relheight=1)
@@ -64,6 +82,10 @@ def display():
 
             class skip:
                 def __init__(self, name):
+					"""
+					Автор: Гуняшов Н.Н.
+					Пролистывание названия в кнопке
+					"""
                     self.s = name
                     self.i1 = -1
                     self.j = 9
@@ -71,12 +93,24 @@ def display():
                     self.flag = 0
                     self.flagButScroll = 0
                 def cancelSkip(self):
+					"""
+					Автор: Волков В.Д.
+					Отмена прокрутки
+					"""
                     self.flagButScroll = 1
                 def scroll(self,but):
+					"""
+					Автор: Труханов А.И.
+					Прокрутка
+					"""
                     self.flagButScroll = 0 
                     self.i1 = -1
                     self.j = 9
                     def change():
+						"""
+						Автор: Гуняшов Н.Н.
+						Меняет фокус на буквы
+						"""
                         if ( self.j < len(self.s) or self.i1 == -1):
                             self.i1 = self.i1 + 1
                             self.j = self.j + 1
@@ -84,6 +118,10 @@ def display():
                     change()
                     but["text"] = self.focus
                     def flagPlus():
+						"""
+						Автор: Волков В.Д.
+						Прибавляет флаг
+						"""
                         self.flag = self.flag + 1
                     self.flag = self.j
                     while (self.flag < len(self.s) ):
@@ -100,15 +138,27 @@ def display():
                     but["text"] = self.focus
                     but.update()
                 def getName(self):
+					"""
+					Автор: Труханов А.И.
+					Возвращает имя
+					"""
                     return self.s
                 def setName(self,name):
+					"""
+					Автор: Гуняшов Н.Н.
+					тавит имя
+					"""
                     self.s = name
             def change(i,j):
+				"""
+				Автор: Волков В.Д.
+				Изменения в базе данных
+				"""
                 self.base[i][self.sequence[j]] = self.entr[j][i].get()
                 self.entr[j][i].delete(0,tk.END)
                 self.entr[j][i].grid_forget()
                 main.writeData(self.base)
-                self.__init__()
+                #self.__init__(base)
                 self.p[j][i].grid(row = i, column =  j+1)
 
 
@@ -157,6 +207,10 @@ def display():
             # init
             self.init_widget()
         def init_widget(self):
+			"""
+			Автор: Труханов А.И.
+			Ставит объекты в классе MainWindow
+			"""
             self.spacePos.grid(row = 0, column = 0)
             for i in range(7):
                 self.pos[i].bind('<ButtonRelease-1>', lambda event, i=i: self.sortDisp(event, main.unfield[self.sequence[i]]))
@@ -182,17 +236,42 @@ def display():
 
             #output
             def output():
-                #self.frame_search.grid( row = 5, column = 0)
+				"""
+				Автор: Гуняшов Н.Н.
+				Подведение итогов
+				"""
                 self.out =  tk.Button( self.frame_search, text = "Подведение итогов", bg = "white", fg="black")
-                self.out.bind("Button-1", lambda event: main.resulttxt(self.base))
+                self.out.bind("<Button-1>", lambda event: main.resulttxt(self.base))
                 self.out.grid( row = 0, column = 0)
             output()
             def outputBase():
-                #self.frame_search.grid( row = 5, column = 0)
+				"""
+				Автор: Волков В.Д.
+				Запись в файл
+				"""
                 self.outB =  tk.Button( self.frame_search, text = "Запись в файл", bg = "white", fg="black")
-                self.outB.bind("Button-1", lambda event: main.outBase(self.base))
+                self.outB.bind("<Button-1>", lambda event: main.outBase(self.base))
                 self.outB.grid( row = 1, column = 0)
             outputBase()
+            def searchBut():
+				"""
+				Автор: Труханов А.И.
+				Поиск по категориям
+				"""
+                self.sea =  tk.Button( self.frame_search, text = "Поиск по категориям", bg = "white", fg="black")
+                self.sea.bind("<Button-1>", lambda event: self.search())
+                self.sea.grid( row = 2, column = 0)
+            searchBut()
+            def init():
+				"""
+				Автор: Гуняшов Н.Н.
+				Вернуться к обычному режиму из режима просмотра поиска по категориям
+				"""
+                self.sea =  tk.Button( self.frame_search, text = "Вернуться", bg = "white", fg="black")
+                self.sea.bind("<Button-1>", lambda event: self.__init__(main.readData()))
+                self.sea.grid( row = 3, column = 0)
+            if (self.base != main.readData()):
+                init()
 
             # add
             self.add.bind('<ButtonRelease-1>', lambda event: self.buttAdd(event))
@@ -207,18 +286,25 @@ def display():
             self.add.grid( row = 0, column = 8)
             # functions
             self.buttSort()
-        
         def buttSort(self):
+			"""
+			Автор: Волков В.Д.
+			Сортирует
+			"""
             self.dele = []
             def deleteBase(i):
+				"""
+				Автор: Труханов А.И.
+				Удаляет элемент из базы данных
+				"""
                 del self.base[i]
                 main.writeData(self.base)
-                self.__init__()
+                self.__init__(self.base)
             for j in range(7):
                 i = 0
                 while ( i < len(self.base)):
                     if ( j == 0 ):
-                        self.dele.append(tk.Button(self.scrollF.interior, text = "Удалить", width = self.width[2]))
+                        self.dele.append(tk.Button(self.scrollF.interior, text = "Удалить", width = self.width[0]))
                         self.dele[-1].bind( '<Button-1>', lambda event, i=i: deleteBase(i) )
                         self.dele[-1].grid( row = i, column = 0)
                         
@@ -228,9 +314,17 @@ def display():
                     self.p[self.sequence[j]][i].grid( row = i, column = self.sequence[j]+1)
                     i = i + 1
         def butChange(self, i, j ):
+			"""
+			Автор: Гуняшов Н.Н.
+			Меняет кнопку на текстовое поле
+			"""
             self.p[j][i].grid_forget()
             self.entr[j][i].grid( row = i, column = j+1)
         def buttAdd(self, event):
+				"""
+				Автор: Волков В.Д.
+				Добавление новых значений
+				"""
                 a = []
                 # appends
                 a.append(self.addNameGame.get())
@@ -256,7 +350,7 @@ def display():
                     # add to base
                     main.addRecord(self.base,a)
                     self.base.append(a)
-                    self.__init__()
+                    self.__init__(self.base)
                     self.buttAdd()
                     #self.buttSort()
                 self.addNameGame.place( x = 100, y = 600)
@@ -268,6 +362,10 @@ def display():
                 self.addPrice.place( x = 833, y = 600)
             
         def sortDisp(self, event, newSort):
+			"""
+			Автор: Труханов А.И.
+			Сортирует
+			"""
             if ( self.currSort == newSort ):
                 self.flagSort = (self.flagSort + 1) % 2
             else: 
@@ -275,10 +373,51 @@ def display():
             self.base = main.sort(newSort, self.flagSort)
             self.currSort = newSort
             self.buttSort()
+        def search(self):
+			"""
+			Автор: Гуняшов Н.Н.
+			Выводит меню для параметров поиска
+			"""
+            def end():
+				"""
+				Автор: Волков В.Д.
+				Осуществляет поиск
+				"""
+                a = self.entryTop1.get()
+                b = self.entryTop2.get()
+                c = self.entryTop3.get()
+                d = self.entryTop4.get()
+                self.__init__(main.search(a,b,c,d))
+                self.Top.destroy()
+            self.Top = tk.Toplevel()
+            self.label = tk.Label(self.Top, text = "Enter low price")
+            self.label.grid( row = 0, column = 0)
+            self.entryTop1 = tk.Entry(self.Top, width = 10)
+            self.entryTop1.grid( row = 1, column = 0)
+
+            self.label = tk.Label(self.Top, text = "Enter high price")
+            self.label.grid( row = 2, column = 0)
+            self.entryTop2 = tk.Entry(self.Top, width = 10)
+            self.entryTop2.grid( row = 3, column = 0)
+
+            self.label = tk.Label(self.Top, text = "Enter low year")
+            self.label.grid( row = 4, column = 0)
+            self.entryTop3 = tk.Entry(self.Top, width = 10)
+            self.entryTop3.grid( row = 5, column = 0)
+
+            self.label = tk.Label(self.Top, text = "Enter high year")
+            self.label.grid( row = 6, column = 0)
+            self.entryTop4 = tk.Entry(self.Top, width = 10)
+            self.entryTop4.grid( row = 7, column = 0)
+
+            self.end = tk.Button(self.Top, text = "Search")
+            self.end.bind( "<Button-1>", lambda event: end())
+            self.end.grid( row = 8, column = 0)
 
     root = tk.Tk()
+    import main
     root.title("Games Date Base")
-    root.geometry('1280x1024')
-    window = MainWindow()
+    root.geometry('750x430')
+    window = MainWindow(main.readData())
     root.mainloop()
 display()
