@@ -90,14 +90,13 @@ def display():
                         but["text"] = self.focus
                         flagPlus()
                         if (self.flagButScroll == 1):
-                            root.after_cancel(a)
-                            root.after_cancel(b)
                             break
-                        a = root.after(300, change())
+                        root.after(300, change())
                         but["text"] = self.focus
                         but.update()
                     self.flag = 0
-                    b = root.after(1000)
+                    if (self.flagButScroll != 1):
+                        root.after(1000)
                     self.focus = self.s[0:10]
                     but["text"] = self.focus
                     but.update()
@@ -105,6 +104,13 @@ def display():
                     return self.s
                 def setName(self,name):
                     self.s = name
+            def change(i,j):
+                self.base[i][self.sequence[j]] = self.entr[j][i].get()
+                self.entr[j][i].delete(0,tk.END)
+                self.entr[j][i].grid_forget()
+                main.writeData(self.base)
+                self.__init__()
+                self.p[j][i].grid(row = i, column =  j)
 
 
 #Поле = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
@@ -113,33 +119,40 @@ def display():
 
             self.pSkip = []
             self.pos = []
+            self.entr = []
             for j in range(7):#self.sequence:
-                self.pos.append(tk.Button( self.frame_sort, width = self.width[j], text = main.unfield[j], bg = "white", fg="black"))
+                self.pos.append(tk.Button( self.frame_sort, width = self.width[self.sequence[j]], text = main.unfield[self.sequence[j]], bg = "white", fg="black"))
                 toP = []
                 pToSkip = []
+                toEntr = []
                 i = 0
                 while ( i < len(self.base) ):
+                    toEntr.append(tk.Entry( self.scrollF.interior, width = self.width[self.sequence[j]], bg = "white", fg="black"))
+                    #toEntr[i-1].insert(0,self.base[i][self.sequence[j]])
                     pToSkip.append(skip(self.base[i][self.sequence[j]]))
                     toP.append(tk.Button(self.scrollF.interior, width = self.width[self.sequence[j]]))
                     i = i + 1
+                self.entr.append(toEntr)
                 self.pSkip.append(pToSkip)
                 self.p.append(toP)
                 i = 0
                 while ( i < len(self.base) ):
+                    self.entr[j][i - 1].bind( "<Return>", lambda event, i=i, j=j: change(i-1,j))
                     self.p[j][i - 1].bind( "<Enter>", lambda event, i=i, j=j: self.pSkip[j][i-1].scroll(self.p[j][i-1]))
                     self.p[j][i - 1].bind( "<Leave>", lambda event, i=i, j=j: self.pSkip[j][i-1].cancelSkip())
+                    self.p[j][i - 1].bind( "<Button-1>", lambda event, i=i, j=j: self.butChange(i-1,j))
                     i = i + 1
 
             # Add
             self.addSpace = tk.Label( self.frame_add, width = 2 )
             self.add =  tk.Button( self.frame_add, text = "Add", bg = "white", fg="black")
-            self.addNameGame = tk.Entry( self.frame_add, width = 15 )
-            self.addPlat = tk.Entry( self.frame_add, width = 12 )
-            self.addGenre = tk.Entry( self.frame_add, width = 10 )
-            self.addYear = tk.Entry( self.frame_add, width = 12 )
-            self.addDevel = tk.Entry( self.frame_add, width = 19 )
-            self.addPublisher = tk.Entry( self.frame_add, width = 19 )
-            self.addPrice = tk.Entry( self.frame_add, width = 5 )
+            self.addNameGame = tk.Entry( self.frame_add, width = self.width[self.sequence[0]] )
+            self.addPlat = tk.Entry( self.frame_add, width = self.width[self.sequence[1]] )
+            self.addGenre = tk.Entry( self.frame_add, width = self.width[self.sequence[2]] )
+            self.addYear = tk.Entry( self.frame_add, width = self.width[self.sequence[3]] )
+            self.addDevel = tk.Entry( self.frame_add, width = self.width[self.sequence[4]] )
+            self.addPublisher = tk.Entry( self.frame_add, width = self.width[self.sequence[5]] )
+            self.addPrice = tk.Entry( self.frame_add, width = self.width[self.sequence[6]] )
 
             # init
             self.init_widget()
@@ -186,8 +199,9 @@ def display():
                     #self.pNG[i].delete(1,tk.END)
                     #self.pNG[i].insert(0,self.base[i][0])
                     i = i + 1
-        #def buChange(self, i, j ):
-            #///grid
+        def butChange(self, i, j ):
+            self.p[j][i].grid_forget()
+            self.entr[j][i].grid( row = i, column = j)# self.sequence[j])
         def buttAdd(self, event):
                 a = []
                 # appends
@@ -231,6 +245,7 @@ def display():
             self.base = main.sort(newSort, self.flagSort)
             self.currSort = newSort
             self.buttSort()
+            self.__init__()
 
     root = tk.Tk()
     root.title("Games Date Base")

@@ -26,7 +26,7 @@ def addRecord(data,d):
     """
     Add in database
     """
-    data.append(d) # if we will want dictionary we will create dict as POLYNA
+    data.append(d)
     writeData(data)
 
 
