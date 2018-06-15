@@ -186,9 +186,14 @@ def display():
                 self.out =  tk.Button( self.frame_search, text = "Подведение итогов", bg = "white", fg="black")
                 self.out.bind("Button-1", lambda event: main.resulttxt(self.base))
                 self.out.grid( row = 0, column = 0)
-                
-
             output()
+            def outputBase():
+                #self.frame_search.grid( row = 5, column = 0)
+                self.outB =  tk.Button( self.frame_search, text = "Запись в файл", bg = "white", fg="black")
+                self.outB.bind("Button-1", lambda event: main.outBase(self.base))
+                self.outB.grid( row = 1, column = 0)
+            outputBase()
+
             # add
             self.add.bind('<ButtonRelease-1>', lambda event: self.buttAdd(event))
             self.addSpace.grid( row = 0, column = 0)
