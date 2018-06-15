@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-Поле = {"Название игры":0, "Платформа":1, "Жанр":2, "Год выпуска":3, "Разработчик":4, "Издатель":5, "Цена":6}
+field = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
+unfield = {0:"Название игры", 1:"Жанр", 2:"Платформа", 3:"Год выпуска", 4:"Цена", 5:"Разработчик", 6:"Издатель"}
 
 def readData():
     """
@@ -21,21 +22,11 @@ def writeData( data ):
     fin = open('data.pi', 'wb')
     pi.dump(data, fin)
 
-def addRecord(a,a0,a1,a2,a3,a4,a5,a6):
+def addRecord(data,d):
     """
     Add in database
     """
-    data = readData()
-    """data.append()"""
-    d = []
-    d.append(a0)
-    d.append(a1)
-    d.append(a2)
-    d.append(a3)
-    d.append(a4)
-    d.append(a5)
-    d.append(a6)
-    data.append(d) # if we will want dictionary we will create dict as POLYNA
+    data.append(d)
     writeData(data)
 
 
@@ -103,14 +94,17 @@ def sort( vvod , order ):
     priority = []
     nombers = {}
     games = readData()
-    if (vvod in Поле):
+    if (vvod in field):
         for a in games:
-            priority.append(a[Поле[vvod]])
+            if (vvod == "Цена"):
+                priority.append(int(a[field[vvod]]))
+            else:
+                priority.append(a[field[vvod]])
         priority = sorted(priority)
         i = 0
         for a in games:
             i = 0
-            while ( a[Поле[vvod]] != priority[i] or i in nombers):
+            while ( a[field[vvod]] != str(priority[i]) or i in nombers):
                 i+=1
             nombers[i]=a
         if (order == 1):
