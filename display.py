@@ -114,14 +114,14 @@ def display():
 
 #Поле = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
             # Search
-            self.exit = tk.Button( self.frame_exit, text = "Выйти", command = root.destroy, bg = "white", fg="black")
+            self.exit = tk.Button( self.frame_exit, text = "Выйти", command = root.destroy, bg = "#4169E1", fg="white", activebackground = "red", relief = "flat")
 
             self.pSkip = []
             self.pos = []
             self.entr = []
-            self.spacePos = tk.Button( self.frame_sort, width = 10)
+            self.spacePos = tk.Button( self.frame_sort, width = 10, relief = "flat")
             for j in range(7):#self.sequence:
-                self.pos.append(tk.Button( self.frame_sort, width = self.width[self.sequence[j]], text = main.unfield[self.sequence[j]]))
+                self.pos.append(tk.Button( self.frame_sort, width = self.width[self.sequence[j]], text = main.unfield[self.sequence[j]], bg = "#4169E1", fg = "white"))
                 toP = []
                 pToSkip = []
                 toEntr = []
@@ -130,7 +130,7 @@ def display():
                     toEntr.append(tk.Entry( self.scrollF.interior, width = self.width[self.sequence[j]], bg = "white", fg="black"))
                     #toEntr[i-1].insert(0,self.base[i][self.sequence[j]])
                     pToSkip.append(skip(self.base[i][self.sequence[j]]))
-                    toP.append(tk.Button(self.scrollF.interior, width = self.width[self.sequence[j]]))
+                    toP.append(tk.Button(self.scrollF.interior, width = self.width[self.sequence[j]], bg = "#B0C4DE" if i % 2 == 1 else "white", relief = "flat" ))
                     i = i + 1
                 self.entr.append(toEntr)
                 self.pSkip.append(pToSkip)
@@ -145,7 +145,7 @@ def display():
 
             # Add
             self.addSpace = tk.Label( self.frame_add, width = 12 )
-            self.add =  tk.Button( self.frame_add, text = "Добавить", bg = "white", fg="black")
+            self.add =  tk.Button( self.frame_add, text = "Добавить", bg = "#4169E1", fg="white", relief = "flat")
             self.addNameGame = tk.Entry( self.frame_add, width = self.width[self.sequence[0]] )
             self.addPlat = tk.Entry( self.frame_add, width = self.width[self.sequence[1]] )
             self.addGenre = tk.Entry( self.frame_add, width = self.width[self.sequence[2]] )
@@ -183,13 +183,13 @@ def display():
             #output
             def output():
                 #self.frame_search.grid( row = 5, column = 0)
-                self.out =  tk.Button( self.frame_search, text = "Подведение итогов", bg = "white", fg="black")
+                self.out =  tk.Button( self.frame_search, text = "Подведение итогов", bg = "#4169E1", fg="white", relief = "flat")
                 self.out.bind("Button-1", lambda event: main.resulttxt(self.base))
                 self.out.grid( row = 0, column = 0)
             output()
             def outputBase():
                 #self.frame_search.grid( row = 5, column = 0)
-                self.outB =  tk.Button( self.frame_search, text = "Запись в файл", bg = "white", fg="black")
+                self.outB =  tk.Button( self.frame_search, text = "Запись в файл", bg = "#4169E1", fg="white", relief = "flat")
                 self.outB.bind("Button-1", lambda event: main.outBase(self.base))
                 self.outB.grid( row = 1, column = 0)
             outputBase()
@@ -218,7 +218,7 @@ def display():
                 i = 0
                 while ( i < len(self.base)):
                     if ( j == 0 ):
-                        self.dele.append(tk.Button(self.scrollF.interior, text = "Удалить", width = self.width[2]))
+                        self.dele.append(tk.Button(self.scrollF.interior, text = "Удалить", width = self.width[2], relief = "groove"))
                         self.dele[-1].bind( '<Button-1>', lambda event, i=i: deleteBase(i) )
                         self.dele[-1].grid( row = i, column = 0)
                         
