@@ -7,8 +7,7 @@ unfield = {0:"Название игры", 1:"Жанр", 2:"Платформа", 
 
 def readData():
     """
-	Автор Труханов А.И.
-    Читает базу
+    Read Database
     """
     import pickle as pi
     fin = open('../data/data.pi', 'rb')
@@ -16,27 +15,25 @@ def readData():
     return data
 
 def writeData( data ):
-	"""
-	Автор: Гуняшов Н.Н.
-	Печатает дату
-	"""
+    """
+    Read Database
+    """
     import pickle as pi
-    fin = open('../data/data.pi', 'wb')
+    fin = open('..data/data.pi', 'wb')
     pi.dump(data, fin)
 
 def addRecord(data,d):
-	"""
-	Автор: Волков В.Д.
-	Добавляет запись
-	"""
+    """
+    Add in database
+    """
     data.append(d)
     writeData(data)
 
 
 def posMore( vvod , vivod):
     """
-	Автор Труханов А.И.
-    Ищет по множеству параметров
+    Get key words and seek them
+    Autor: Volkov V.D.
     """
     flag = 0
     i = 0
@@ -63,10 +60,10 @@ def posMore( vvod , vivod):
             flag = 0
 
 def pos( vvod ):
-	"""
-	Автор: Гуняшов Н.Н.
-	Поиск по параметрам
-	"""
+    """
+    Read key words and seek them
+    Autor: Volkov V.D.
+    """
     i = 0  
     j = 0
     lis = [] 
@@ -89,10 +86,10 @@ def pos( vvod ):
         print()
 
 def sort( vvod , order ):
-	"""
-	Автор: Волков В.Д.
-	Сортирует
-	"""
+    """
+    Read key words sort
+    Autor: Volkov V.D.
+    """
     output = []
     priority = []
     nombers = {}
@@ -129,8 +126,6 @@ def sort( vvod , order ):
 
 def search(a,b,c,d):
     """
-	Автор Труханов А.И.
-    Поиск в промежутке
     """
     baseOut = []
     base = readData()
@@ -175,44 +170,3 @@ def search(a,b,c,d):
                     base.append(e)
         baseOut = base
     return baseOut
-
-def outBase( data ):
-	"""
-	Автор: Гуняшов Н.Н.
-	Выводит базу
-	"""
-    fin = open('base.txt', 'w')
-    for a in data:
-        for b in a:
-            print(b, file=fin)
-        print(file=fin)
-    fin.close()
-
-def resulttxt(data):
-	"""
-	Автор: Волков В.Д.
-	Считает ср. арифм.
-	"""
-    fin = open('result.txt', 'w')
-    d=0
-    summ=0
-    sr=0
-    disp=0
-    otkl=[]
-    summotkl=0
-    for a in data:
-        d=d+1
-    print("Кол-во записей:",file=fin)
-    print(d,file=fin)
-    for a in data:
-        summ=summ+int(a[4])
-    sr=summ/d
-    print("Среднее арифметическое:",file=fin)
-    print(int(sr),file=fin)
-    for a in data:
-        otkl.append((int(sr)-int(a[4]))**2)
-    for a in otkl:
-        summotkl=summotkl+a
-    disp=summotkl/d
-    print("Дисперсия:",file=fin)
-    print(int(disp),file=fin)
