@@ -202,7 +202,7 @@ def display():
                 while ( i < len(self.base)):
                     if ( j == 0 ):
                         self.dele.append(tk.Button(self.scrollF.interior, text = "Удалить", width = self.width[2]))
-                        self.dele[-1].bind( '<Button-1>', lambda event, i=i: deleteBase(i-1) )
+                        self.dele[-1].bind( '<Button-1>', lambda event, i=i: deleteBase(i) )
                         self.dele[-1].grid( row = i, column = 0)
                         
                         
@@ -261,7 +261,7 @@ def display():
 
     root = tk.Tk()
     root.title("Games Date Base")
-    root.geometry('1800x1600')
+    root.geometry('1280x1024')
     window = MainWindow()
     root.mainloop()
 display()
