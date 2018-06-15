@@ -282,36 +282,6 @@ def display():
             self.base = main.sort(newSort, self.flagSort)
             self.currSort = newSort
             self.buttSort()
-        """
-        def searchMenu(self):
-            def click(self):
-                entryTop = tk.Entry(self.Top, width = 10)
-                entryTop.grid( row = iTop, column = 0)
-                iTop = iTop + 1
-                self.TopDialog.append(entryTop)
-                self.TopAdd.grid( row = iTop, column = 0)
-                self.end.grid( row = iTop+1, column = 0)
-                self.Top.update()
-            def end():
-                summ = ""
-                for i in self.TopDialog:
-                    if (len(summ) > 0)
-                        summ + '&'
-                    summ = summ + TopDialog
-                main.
-                self.Top.destroy()
-            self.iTop = 1
-            self.Top = tk.Toplevel()
-            self.label = tk.Label(self.Top, text = "Enter key words")
-            self.label.grid( row = 0, column = 0)
-            self.TopDialog = []
-            self.TopAdd = tk.Button(self.Top, text = "Add new key word")
-            self.TopAdd.bind( "<Button-1>", lambda event: click())
-            self.TopAdd.grid( row = iTop, column = 0)
-            self.end = tk.Button(self.Top, text = "Search")
-            self.end.bind( "<Button-1>", lambda event: end())
-            self.end.grid( row = iTop+1, column = 0)
-        """
         def search(self):
             def end():
                 a = self.entryTop1.get()
@@ -320,23 +290,24 @@ def display():
                 d = self.entryTop4.get()
                 self.__init__(main.search(a,b,c,d))
                 self.Top.destroy()
+                self.Top.resizable(width=False, height=False)
             self.Top = tk.Toplevel()
-            self.label = tk.Label(self.Top, text = "Enter low price")
+            self.label = tk.Label(self.Top, text = "Нижний порог отсеивания цены")
             self.label.grid( row = 0, column = 0)
             self.entryTop1 = tk.Entry(self.Top, width = 10)
             self.entryTop1.grid( row = 1, column = 0)
 
-            self.label = tk.Label(self.Top, text = "Enter high price")
+            self.label = tk.Label(self.Top, text = "Верхний порог отсеивания цены")
             self.label.grid( row = 2, column = 0)
             self.entryTop2 = tk.Entry(self.Top, width = 10)
             self.entryTop2.grid( row = 3, column = 0)
 
-            self.label = tk.Label(self.Top, text = "Enter low year")
+            self.label = tk.Label(self.Top, text = "Нижний порог отсеивания года")
             self.label.grid( row = 4, column = 0)
             self.entryTop3 = tk.Entry(self.Top, width = 10)
             self.entryTop3.grid( row = 5, column = 0)
 
-            self.label = tk.Label(self.Top, text = "Enter high year")
+            self.label = tk.Label(self.Top, text = "Верхний порог отсеивания года")
             self.label.grid( row = 6, column = 0)
             self.entryTop4 = tk.Entry(self.Top, width = 10)
             self.entryTop4.grid( row = 7, column = 0)
