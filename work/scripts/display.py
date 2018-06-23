@@ -68,9 +68,9 @@ def display():
             self.currSort = ""
             self.base = base#main.readData()
             self.p = []
-            self.im = tk.Label(root)
-            self.im.place(x=0, y=0, relwidth=1, relheight=1)
-            self.frame_all = tk.Frame(self.im)
+            #self.im = tk.Label(root)
+            #self.im.place(x=0, y=0, relwidth=1, relheight=1)
+            self.frame_all = tk.Frame(root)
             self.scrollF = scrollFrame(self.frame_all)
             self.frame_sort = tk.Frame(self.frame_all)
             self.frame_add =  tk.Frame(self.frame_all)
@@ -78,7 +78,6 @@ def display():
             self.frame_exit =  tk.Frame(self.frame_all)
             self.sequence = [0,2,1,3,5,6,4]
             self.width = [12,8,9,9,2,16,16]
-
 
             class skip:
                 def __init__(self, name):
@@ -158,7 +157,6 @@ def display():
                 self.entr[j][i].delete(0,tk.END)
                 self.entr[j][i].grid_forget()
                 main.writeData(self.base)
-                #self.__init__(base)
                 self.p[j][i].grid(row = i, column =  j+1)
 
 
@@ -169,7 +167,6 @@ def display():
             self.pSkip = []
             self.pos = []
             self.entr = []
-            self.spacePos = tk.Button( self.frame_sort, width = 10)
             for j in range(7):#self.sequence:
                 self.pos.append(tk.Button( self.frame_sort, width = self.width[self.sequence[j]], text = main.unfield[self.sequence[j]]))
                 toP = []
@@ -178,7 +175,6 @@ def display():
                 i = 0
                 while ( i < len(self.base) ):
                     toEntr.append(tk.Entry( self.scrollF.interior, width = self.width[self.sequence[j]], bg = "white", fg="black"))
-                    #toEntr[i-1].insert(0,self.base[i][self.sequence[j]])
                     pToSkip.append(skip(self.base[i][self.sequence[j]]))
                     toP.append(tk.Button(self.scrollF.interior, width = self.width[self.sequence[j]]))
                     i = i + 1
@@ -211,25 +207,20 @@ def display():
             Автор: Труханов А.И.
             Ставит объекты в классе MainWindow
             """
-            self.spacePos.grid(row = 0, column = 0)
+            self.spacePos = tk.Button( self.frame_sort, width = 12)
+            self.spacePos.grid(row = 0, column = 0, sticky = tk.E)
             for i in range(7):
                 self.pos[i].bind('<ButtonRelease-1>', lambda event, i=i: self.sortDisp(event, main.unfield[self.sequence[i]]))
                 self.pos[i].grid( row = 0, column = i+1 )
 
-
             self.exit.grid()
-            #self.scrollF.config(width = 500, heigth = 400)
-            #self.frame_all.place( x = 100, y = 50, width = 2791, height = 1500 )
             self.frame_all.place( x = 10, y = 5, width = 1291, height = 1500 )
             
             self.exit.bind('<ButtonRelease-1>')
-            #self.exit.place(x = 1050, y = 650, width = 75, height = 40)
 
-            self.frame_sort.grid( row = 0, column = 0)
+            self.frame_sort.grid( row = 0, column = 0, sticky = tk.W)
             self.scrollF.grid( row = 1, column = 0)
-            #self.frame_all.rowconfigure(2, weight=1)
             self.frame_add.grid( row = 3, column = 0)
-            #self.frame_all.rowconfigure(4, weight=2)
             self.frame_search.grid( row = 5, column = 0)
             self.frame_exit.grid( row = 5, column = 1)
 
@@ -258,19 +249,23 @@ def display():
                 Автор: Труханов А.И.
                 Поиск по категориям
                 """
+                def event_search():
+                    self.search()
                 self.sea =  tk.Button( self.frame_search, text = "Поиск по категориям", bg = "white", fg="black")
-                self.sea.bind("<Button-1>", lambda event: self.search())
+                self.sea.bind("<Button-1>", lambda event: event_search())
                 self.sea.grid( row = 2, column = 0)
-            def init():
+            def back():
                 """
                 Автор: Гуняшов Н.Н.
                 Вернуться к обычному режиму из режима просмотра поиска по категориям
                 """
+                def event_back():
+                    self.__init__(main.readData())
                 self.sea =  tk.Button( self.frame_search, text = "Вернуться", bg = "white", fg="black")
-                self.sea.bind("<Button-1>", lambda event: self.__init__(main.readData()))
+                self.sea.bind("<Button-1>", lambda event: event_back())
                 self.sea.grid( row = 2, column = 0)
-            if (self.base != main.readData()):
-                init()
+            if ( self.base != main.readData() ):
+                back()
             else:
                 searchBut()
 
@@ -421,7 +416,7 @@ def display():
     main = SourceFileLoader("main.py", "../library/main.py").load_module()
     #import main
     root.title("Games Date Base")
-    root.geometry('750x430')
+    root.geometry('1280x720')
     window = MainWindow(main.readData())
     root.mainloop()
 display()

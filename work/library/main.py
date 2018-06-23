@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
+"""
+Инициализирует поля базы
+"""
 field = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
 unfield = {0:"Название игры", 1:"Жанр", 2:"Платформа", 3:"Год выпуска", 4:"Цена", 5:"Разработчик", 6:"Издатель"}
 
@@ -134,47 +136,40 @@ def search(a,b,c,d):
     """
     baseOut = []
     base = readData()
+    i = 0
     if (len(a) > 0):
-        for e in base:
-            if (int(e[4]) > int(a)):
-                baseOut.append(e)
+        while ( i < len(base)):
+            if (int(base[i][4]) > int(a)):
+                i = i + 1
+            else:
+                del base[i]
+    i = 0
 
     if (len(b) > 0):
-        if (len(baseOut) == 0):
-            for e in base:
-                if (int(e[4]) < int(b)):
-                    baseOut.append(e)
-        else:
-            base = []
-            for e in baseOut:
-                if (int(e[4]) < int(b)):
-                    base.append(e)
-        baseOut = base
+        while ( i < len(base)):
+            if (int(base[i][4]) < int(b)):
+                i = i + 1
+            else:
+                del base[i]
+    i = 0
 
     if (len(c) > 0):
-        if (len(baseOut) == 0):
-            for e in base:
-                if (int(e[3]) > int(c)):
-                    baseOut.append(e)
-        else:
-            base = []
-            for e in baseOut:
-                if (int(e[3]) > int(c)):
-                    base.append(e)
-        baseOut = base
+        while ( i < len(base)):
+            print(base[i][3])
+            print(a)
+            if (int(base[i][3]) > int(c)):
+                i = i + 1
+            else:
+                del base[i]
+    i = 0
 
     if (len(d) > 0):
-        if ( len(baseOut) == 0):
-            for e in base:
-                if (int(e[3]) < int(d)):
-                    baseOut.append(e)
-        else:
-            base = []
-            for e in baseOut:
-                if (int(e[3]) < int(d)):
-                    base.append(e)
-        baseOut = base
-    return baseOut
+        while ( i < len(base)):
+            if (int(base[i][3]) < int(d)):
+                i = i + 1
+            else:
+                del base[i]
+    return base
 
 def outBase( data ):
     """
