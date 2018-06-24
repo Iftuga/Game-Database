@@ -7,13 +7,20 @@
 field = {"Название игры":0, "Жанр":1, "Платформа":2, "Год выпуска":3, "Цена":4, "Разработчик":5, "Издатель":6}
 unfield = {0:"Название игры", 1:"Жанр", 2:"Платформа", 3:"Год выпуска", 4:"Цена", 5:"Разработчик", 6:"Издатель"}
 
+"""
+Находит путь
+"""
+from importlib.machinery import SourceFileLoader
+import os
+path = os.path.abspath("main.py")
+
 def readData():
     """
     Автор Труханов А.И.
     Читает базу
     """
     import pickle as pi
-    fin = open('../data/data.pi', 'rb')
+    fin = open(path[:-7] + 'data/data.pi', 'rb')
     data = pi.load(fin)
     return data
 
@@ -23,7 +30,7 @@ def writeData( data ):
     Печатает дату
     """
     import pickle as pi
-    fin = open('../data/data.pi', 'wb')
+    fin = open(path[:-7] + 'data/data.pi', 'wb')
     pi.dump(data, fin)
 
 def addRecord(data,d):
@@ -177,7 +184,7 @@ def outBase( data ):
     Выводит базу
     """
     import numpy as np
-    fin = open('../output/base.txt', 'w')
+    fin = open(path[:-7] + 'output/base.txt', 'w')
     l = np.empty( len(unfield) , dtype=np.int16)
     for i in unfield:
         l[i] = 0
@@ -204,7 +211,7 @@ def resulttxt(data):
     Автор: Волков В.Д.
     Считает ср. арифм.
     """
-    fin = open('../output/result.txt', 'w')
+    fin = open(path[:-7] + 'output/result.txt', 'w')
     d=0
     summ=0
     sr=0

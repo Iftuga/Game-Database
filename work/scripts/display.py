@@ -66,7 +66,7 @@ def display():
             """
             self.flagSort = 0
             self.currSort = ""
-            self.base = base#main.readData()
+            self.base = base
             self.p = []
             #self.im = tk.Label(root)
             #self.im.place(x=0, y=0, relwidth=1, relheight=1)
@@ -156,7 +156,7 @@ def display():
                 self.base[i][self.sequence[j]] = self.entr[j][i].get()
                 self.entr[j][i].delete(0,tk.END)
                 self.entr[j][i].grid_forget()
-                main.writeData(self.base)
+                algo.writeData(self.base)
                 self.p[j][i].grid(row = i, column =  j+1)
 
 
@@ -168,7 +168,7 @@ def display():
             self.pos = []
             self.entr = []
             for j in range(7):#self.sequence:
-                self.pos.append(tk.Button( self.frame_sort, width = self.width[self.sequence[j]], text = main.unfield[self.sequence[j]]))
+                self.pos.append(tk.Button( self.frame_sort, width = self.width[self.sequence[j]], text = algo.unfield[self.sequence[j]]))
                 toP = []
                 pToSkip = []
                 toEntr = []
@@ -210,7 +210,7 @@ def display():
             self.spacePos = tk.Button( self.frame_sort, width = 12)
             self.spacePos.grid(row = 0, column = 0, sticky = tk.E)
             for i in range(7):
-                self.pos[i].bind('<ButtonRelease-1>', lambda event, i=i: self.sortDisp(event, main.unfield[self.sequence[i]]))
+                self.pos[i].bind('<ButtonRelease-1>', lambda event, i=i: self.sortDisp(event, algo.unfield[self.sequence[i]]))
                 self.pos[i].grid( row = 0, column = i+1 )
 
             self.exit.grid()
@@ -232,7 +232,7 @@ def display():
                 Подведение итогов
                 """
                 self.out =  tk.Button( self.frame_search, text = "Подведение итогов", bg = "white", fg="black")
-                self.out.bind("<Button-1>", lambda event: main.resulttxt(self.base))
+                self.out.bind("<Button-1>", lambda event: algo.resulttxt(self.base))
                 self.out.grid( row = 0, column = 0)
             output()
             def outputBase():
@@ -241,7 +241,7 @@ def display():
                 Запись в файл
                 """
                 self.outB =  tk.Button( self.frame_search, text = "Запись в файл", bg = "white", fg="black")
-                self.outB.bind("<Button-1>", lambda event: main.outBase(self.base))
+                self.outB.bind("<Button-1>", lambda event: algo.outBase(self.base))
                 self.outB.grid( row = 1, column = 0)
             outputBase()
             def searchBut():
@@ -260,11 +260,11 @@ def display():
                 Вернуться к обычному режиму из режима просмотра поиска по категориям
                 """
                 def event_back():
-                    self.__init__(main.readData())
+                    self.__init__(algo.readData())
                 self.sea =  tk.Button( self.frame_search, text = "Вернуться", bg = "white", fg="black")
                 self.sea.bind("<Button-1>", lambda event: event_back())
                 self.sea.grid( row = 2, column = 0)
-            if ( self.base != main.readData() ):
+            if ( self.base != algo.readData() ):
                 back()
             else:
                 searchBut()
@@ -294,7 +294,7 @@ def display():
                 Удаляет элемент из базы данных
                 """
                 del self.base[i]
-                main.writeData(self.base)
+                algo.writeData(self.base)
                 self.__init__(self.base)
             for j in range(7):
                 i = 0
@@ -344,7 +344,7 @@ def display():
                     self.addPublisher.delete(1,tk.END)
                     self.addPrice.delete(1,tk.END)
                     # add to base
-                    main.addRecord(self.base,a)
+                    algo.addRecord(self.base,a)
                     self.base.append(a)
                     self.__init__(self.base)
                     self.buttAdd()
@@ -366,7 +366,7 @@ def display():
                 self.flagSort = (self.flagSort + 1) % 2
             else: 
                 self.flagSort = 1
-            self.base = main.sort(newSort, self.flagSort)
+            self.base = algo.sort(newSort, self.flagSort)
             self.currSort = newSort
             self.buttSort()
         def search(self):
@@ -383,7 +383,7 @@ def display():
                 b = self.entryTop2.get()
                 c = self.entryTop3.get()
                 d = self.entryTop4.get()
-                self.__init__(main.search(a,b,c,d))
+                self.__init__(algo.search(a,b,c,d))
                 self.Top.destroy()
             self.Top = tk.Toplevel()
             self.label = tk.Label(self.Top, text = "Нижний порог отсеивания цены")
@@ -411,12 +411,14 @@ def display():
             self.end.grid( row = 8, column = 0)
 
     root = tk.Tk()
-    from importlib.machinery import SourceFileLoader
 
-    main = SourceFileLoader("main.py", "../library/main.py").load_module()
-    #import main
+    #import algo
+    from importlib.machinery import SourceFileLoader
+    import os
+    path = os.path.abspath("display.py")
+    algo = SourceFileLoader("algo.py", path [:-10] + "library/algo.py").load_module()
     root.title("Games Date Base")
     root.geometry('1280x720')
-    window = MainWindow(main.readData())
+
+    window = MainWindow(algo.readData())
     root.mainloop()
-display()
