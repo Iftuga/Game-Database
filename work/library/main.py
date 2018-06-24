@@ -176,11 +176,27 @@ def outBase( data ):
     Автор: Гуняшов Н.Н.
     Выводит базу
     """
+    import numpy as np
     fin = open('../output/base.txt', 'w')
+    l = np.empty( len(unfield) , dtype=np.int16)
+    for i in unfield:
+        l[i] = 0
+        for b in data:
+            if (len(b[i]) > l[i]):
+                l[i] = len(b[i])
+        if (len(unfield[i]) > l[i]):
+            l[i] = len(unfield[i])
+
+    print('-'*(np.sum(l)+len(unfield)*2), file=fin)
+    for i in unfield:
+        print( '|' +unfield[i] +   ' '*(l[i]-len(unfield[i])) , end = '|', file=fin)
+    print(file=fin)
+    print('-'*(np.sum(l)+len(unfield)*2), file=fin)
     for a in data:
-        for b in a:
-            print(b, file=fin)
+        for i in unfield:
+            print('|' +  a[i] + ' '*(l[i]-len(a[i])), end ='|', file=fin)
         print(file=fin)
+    print('-'*(np.sum(l)+len(unfield)*2), file=fin)
     fin.close()
 
 def resulttxt(data):
@@ -198,16 +214,16 @@ def resulttxt(data):
     for a in data:
         d=d+1
     print("Кол-во записей:",file=fin)
-    print(d,file=fin)
+    print(' ',d,file=fin)
     for a in data:
         summ=summ+int(a[4])
     sr=summ/d
     print("Среднее арифметическое:",file=fin)
-    print(int(sr),file=fin)
+    print(' ', int(sr),file=fin)
     for a in data:
         otkl.append((int(sr)-int(a[4]))**2)
     for a in otkl:
         summotkl=summotkl+a
     disp=summotkl/d
     print("Дисперсия:",file=fin)
-    print(int(disp),file=fin)
+    print(' ',int(disp),file=fin)
